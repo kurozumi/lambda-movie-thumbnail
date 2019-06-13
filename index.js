@@ -11,7 +11,7 @@ let execSync = require('child_process').execSync;
 
 let i = 1;
 
-const getObject = (bucket, key, resolve, preserve) => {
+const getObject = (bucket, key, resolve) => {
     let params = {
         Bucket: bucket,
         Key: key
@@ -20,17 +20,17 @@ const getObject = (bucket, key, resolve, preserve) => {
     s3.getObject(params, function(error, data) {
         try {
             if(error) {
-                preserve(error);
+                console.log(error);
             } else {
                 resolve(data);
             }
         } catch(e) {
-            preserve(e)
+            console.log(e)
         }
     });
 };
 
-const putObject = (body, bucket, key, resolve, preserve) => {
+const putObject = (body, bucket, key, resolve) => {
     let params = {
         Body: body,
         Bucket: bucket,
@@ -40,12 +40,12 @@ const putObject = (body, bucket, key, resolve, preserve) => {
     s3.putObject(params, function(error, data) {
         try {
             if (error) {
-                preserve(error);
+                console.log(error);
             } else {
                 resolve(data);
             }
         } catch(e) {
-            preserve(e);
+            console.log(e);
         }
     });
 };
